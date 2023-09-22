@@ -1,0 +1,203 @@
+Algeria/Africa/none/none
+Angola/Africa/none/none
+Benin/Africa/none/none
+Botswana/Africa/none/none
+Burkina Faso/Africa/none/none
+Burundi/Africa/none/none
+Cameroon/Africa/none/none
+Cape Verde/Africa/none/none
+Central African Republic/Africa/none/none
+Chad/Africa/none/none
+Comoros/Africa/none/none
+Republic of the Congo/Africa/none/none
+Democratic Republic of the Congo/Africa/none/none
+Cote d'Ivoire/Africa/none/none
+Djibouti/Africa/none/none
+Equatorial Guinea/Africa/none/none
+Egypt/Africa/none/none
+Eritrea/Africa/none/none
+Ethiopia/Africa/none/none
+Gabon/Africa/none/none
+Gambia/Africa/none/none
+Ghana/Africa/none/none
+Guinea/Africa/none/none
+Guinea-Bissau/Africa/none/none
+Kenya/Africa/none/none
+Lesotho/Africa/none/none
+Liberia/Africa/none/none
+Libya/Africa/none/none
+Madagascar/Africa/none/none
+Malawi/Africa/none/none
+Mali/Africa/none/none
+Mauritania/Africa/none/none
+Mauritius/Africa/none/none
+Morocco/Africa/none/none
+Mozambique/Africa/none/none
+Namibia/Africa/none/none
+Niger/Africa/none/none
+Nigeria/Africa/none/none
+Reunion/Africa/none/none
+Rwanda/Africa/none/none
+Sao Tome and Príncipe/Africa/none/none
+Senegal/Africa/none/none
+Seychelles/Africa/none/none
+Sierra Leone/Africa/none/none
+Somalia/Africa/none/none
+South Africa/Africa/none/none
+South Sudan/Africa/none/none
+Sudan/Africa/none/none
+Swaziland/Africa/none/none
+Tanzania/Africa/none/none
+Togo/Africa/none/none
+Tunisia/Africa/none/none
+Uganda/Africa/none/none
+Western Sahara/Africa/none/none
+Zambia/Africa/none/none
+Zimbabwe/Africa/none/none
+Afghanistan/Asia/none/none
+Armenia/Asia/none/none
+Azerbaijan/Asia/none/none
+Bahrain/Asia/none/none
+Bangladesh/Asia/none/none
+Bhutan/Asia/none/none
+Brunei/Asia/none/none
+Cambodia/Asia/none/none
+China/Asia/none/none
+East Timor/Asia/none/none
+Georgia/Asia/none/none
+India/Asia/none/none
+Indonesia/Asia/none/none
+Iran/Asia/none/none
+Iraq/Asia/none/none
+Israel/Asia/none/none
+Japan/Asia/none/none
+Jordan/Asia/none/none
+Kazakhstan/Asia/none/none
+Kuwait/Asia/none/none
+Kyrgyzstan/Asia/none/none
+Laos/Asia/none/none
+Lebanon/Asia/none/none
+Malaysia/Asia/none/none
+The Maldives/Asia/none/none
+Mongolia/Asia/none/none
+Myanmar/Asia/none/none
+Nepal/Asia/none/none
+North Korea/Asia/none/none
+Oman/Asia/none/none
+Pakistan/Asia/none/none
+Palestine/Asia/none/none
+Philippines/Asia/none/none
+Qatar/Asia/none/none
+Russia/Europe/none/none
+Saudi Arabia/Asia/none/none
+Singapore/Asia/none/none
+South Korea/Asia/none/none
+Sri Lanka/Asia/none/none
+Syria/Asia/none/none
+Taiwan/Asia/none/none
+Tajikistan/Asia/none/none
+Thailand/Asia/none/none
+Turkmenistan/Asia/none/none
+United Arab Emirates/Asia/none/none
+Uzbekistan/Asia/none/none
+Vietnam/Asia/none/none
+Yemen/Asia/none/none
+Albania/Europe/none/none
+Andorra/Europe/none/none
+Austria/Europe/none/none
+Belarus/Europe/none/none
+Belgium/Europe/none/none
+Bosnia and Herzegovina/Europe/none/none
+Bulgaria/Europe/none/none
+Croatia/Europe/none/none
+Cyprus/Europe/none/none
+Czech Republic/Europe/none/none
+Denmark/Europe/none/none
+Estonia/Europe/none/none
+Finland/Europe/none/none
+France/Europe/none/none
+Germany/Europe/none/none
+Greece/Europe/none/none
+Hungary/Europe/none/none
+Iceland/Europe/none/none
+Republic of Ireland/Europe/none/none
+Italy/Europe/none/none
+Kosovo/Europe/none/none
+Latvia/Europe/none/none
+Liechtenstein/Europe/none/none
+Lithuania/Europe/none/none
+Luxembourg/Europe/none/none
+North Macedonia/Europe/none/none
+Malta/Europe/none/none
+Moldova/Europe/none/none
+Monaco/Europe/none/none
+Montenegro/Europe/none/none
+Netherlands/Europe/none/none
+Norway/Europe/none/none
+Poland/Europe/none/none
+Portugal/Europe/none/none
+Romania/Europe/none/none
+San Marino/Europe/none/none
+Serbia/Europe/none/none
+Slovakia/Europe/none/none
+Slovenia/Europe/none/none
+Spain/Europe/none/none
+Sweden/Europe/none/none
+Switzerland/Europe/none/none
+Turkey/Europe/none/none
+Ukraine/Europe/none/none
+United Kingdom/Europe/none/none
+Vatican City/Europe/none/none
+Canada/North America/none/none
+Mexico/North America/none/none
+United States of America/North America/none/none
+Navassa Island/North America/none/none
+Puerto Rico/North America/none/none
+US Virgin Islands/North America/none/none
+Dominican Republic/North America/none/none
+Cuba/North America/none/none
+Greenland/North America/none/none
+Haiti/North America/none/none
+Belize/North America/none/none
+Costa Rica/North America/none/none
+El Salvador/North America/none/none
+Guatemala/North America/none/none
+Honduras/North America/none/none
+Guadeloupe/North America/none/none
+Martinique/North America/none/none
+Nicaragua/North America/none/none
+Panama/North America/none/none
+Jamaica/North America/none/none
+Bahamas/North America/none/none
+Barbados/North America/none/none
+Dominica/North America/none/none
+Brazil/South America/none/none
+Argentina/South America/none/none
+Bolivia/South America/none/none
+Chile/South America/none/none
+Colombia/South America/none/none
+Ecuador/South America/none/none
+Falkland Islands/South America/none/none
+French Guiana/South America/none/none
+Guyana/South America/none/none
+Paraguay/South America/none/none
+Peru/South America/none/none
+South Georgia and the South Sandwich Islands/South America/none/none
+Suriname/South America/none/none
+Trinidad and Tobago/South America/none/none
+Uruguay/South America/none/none
+Venezuela/South America/none/none
+Australia/Oceania/none/none
+Fiji/Oceania/none/none
+New Zealand/Oceania/none/none
+Federated States of Micronesia/Oceania/none/none
+Kiribati/Oceania/none/none
+Marshall Islands/Oceania/none/none
+Nauru/Oceania/none/none
+Palau/Oceania/none/none
+Papua New Guinea/Oceania/none/none
+Samoa/Oceania/none/none
+Solomon Islands/Oceania/none/none
+Tonga/Oceania/none/none
+Tuvalu/Oceania/none/none
+Vanuatu/Oceania/none/none
