@@ -46,16 +46,16 @@ def db_init():
 			  	city VARCHAR(50),
 			  	zipcode VARCHAR(20),
 			  	complement VARCHAR(20),
-			  	number VARCHAR(10),
+			  	number INT,
 			  	timeZone timeZoneEnum,
 			  	dateOfBirth DATE,
 	      		last_login TIMESTAMP,
+			  	street VARCHAR(200),
 			  	FOREIGN KEY (country) REFERENCES Country(name)
 			);
 
 			CREATE TABLE IF NOT EXISTS Company (
 				registrationNumber VARCHAR(20) PRIMARY KEY NOT NULL,
-				wellId VARCHAR(20),
 				oficialName VARCHAR(200),
 			  	marketName VARCHAR(200),
 				phone VARCHAR(20),
@@ -63,24 +63,26 @@ def db_init():
 			  	contactPersonFullName VARCHAR(200),
 			  	contactPersonPhone VARCHAR(20),
 			  	contactPersonEmail VARCHAR(100),
+			  	country VARCHAR(50),
 				state VARCHAR(50),
 			  	city VARCHAR(50),
 			  	zipCode VARCHAR(20),
 			  	complement VARCHAR(20),
-			  	street VARCHAR(100)
+			  	street VARCHAR(100),
+			  	number INT
 			);
 
 			CREATE TABLE IF NOT EXISTS Well (
-				id SERIAL PRIMARY KEY NOT NULL,
+				id BIGINT PRIMARY KEY NOT NULL,
 				userId VARCHAR(20),
 				companyId VARCHAR(20),
 				name VARCHAR(200),
 				description VARCHAR(300),
 				status VARCHAR(200),
-			  	opertatingCompany VARCHAR(200),
+			  	operatingCompany VARCHAR(200),
 			  	soundingCompany VARCHAR(200),
 			  	drillingCompany VARCHAR(200),
-			  	enviroment enviromentEnum,
+			  	environment enviromentEnum,
 			  	wellType wellTypeEnum,
 			  	depth DOUBLE PRECISION,
 			  	waterDepth DOUBLE PRECISION,
@@ -94,19 +96,19 @@ def db_init():
 			);
 
 			CREATE TABLE IF NOT EXISTS Data_ (
-				id SERIAL PRIMARY KEY NOT NULL,
+				id BIGINT PRIMARY KEY NOT NULL,
 				wellId BIGINT,
-				rop DOUBLE PRECISION,
-				mse DOUBLE PRECISION,
-				dwob DOUBLE PRECISION,
-				swob DOUBLE PRECISION,
-				srpm DOUBLE PRECISION,
-			  	crpm DOUBLE PRECISION,
-				flow DOUBLE PRECISION,
-			  	stor DOUBLE PRECISION,
-			  	dtor DOUBLE PRECISION,
-			  	tvd DOUBLE PRECISION,
-			  	md DOUBLE PRECISION,
+				rop DOUBLE PRECISION ARRAY,
+				mse DOUBLE PRECISION ARRAY,
+				dwob DOUBLE PRECISION ARRAY,
+				swob DOUBLE PRECISION ARRAY,
+				srpm DOUBLE PRECISION ARRAY,
+			  	crpm DOUBLE PRECISION ARRAY,
+				tflow DOUBLE PRECISION ARRAY,
+			  	stor DOUBLE PRECISION ARRAY,
+			  	dtor DOUBLE PRECISION ARRAY,
+			  	tvd DOUBLE PRECISION ARRAY,
+			  	md DOUBLE PRECISION ARRAY,
 				FOREIGN KEY (wellId) REFERENCES Well(id)
 			);
 			  
@@ -118,7 +120,7 @@ def db_init():
 				FOREIGN KEY (userId) REFERENCES User_(personalId)
 			);
 			  
-			  CREATE TABLE IF NOT EXISTS WellUser (
+			  CREATE TABLE IF NOT EXISTS Well_User (
 				wellId BIGINT,
 				userId VARCHAR(20),
 				PRIMARY KEY (wellId, userId),
@@ -210,18 +212,22 @@ def add_countries():
 			return False
 
 #insere um usuário ao banco
-def db_insert_user(pid, cid, fullname, phonePro, phoneWpp, email, password, country, state, city, zipcode, complement, number, timezone, dateofbirth):
+def db_insert_user(pid, cid, fullname, phonePro, phoneWpp, email, password, country, state, city, zipcode, complement, number, timezone, dateofbirth, street):
 	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
 	cur = conn.cursor()
 
 	if(conn.status==1):
-		query = """INSERT INTO user_ (personalid, companyid, fullname, phoneprofessional, phonewhatsapp, email, password, country, state, city, zipcode, complement, number, timezone, dateofbirth) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
+		query = """INSERT INTO user_ (personalid, companyid, fullname, phoneprofessional, phonewhatsapp, email, password, country, state, city, zipcode, complement, number, timezone, dateofbirth, street) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
 
 		password_bytes = password.encode('utf-8')
 		salt = bcrypt.gensalt(rounds=12)
 		hashed = bcrypt.hashpw(password_bytes, salt)
 
-		data = (pid, cid, fullname, phonePro, phoneWpp, email, hashed, country, state, city, zipcode, complement, number, timezone, dateofbirth)
+		data = (pid, cid, fullname, phonePro, phoneWpp, email, hashed, country, state, city, zipcode, complement, number, timezone, dateofbirth, street)
+		cur.execute(query, data)
+
+		query = """INSERT INTO company_user (companyid, userid) VALUES (%s, %s);"""
+		data = (cid, pid)
 		cur.execute(query, data)
 
 		conn.commit()
@@ -234,8 +240,98 @@ def db_insert_user(pid, cid, fullname, phonePro, phoneWpp, email, password, coun
 		conn.close()
 		return False
 	
+def db_update_user(pid, fullname, phonePro, phoneWpp, email, country, state, city, zipcode, complement, number, timezone, dateofbirth, street):
+	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	cur = conn.cursor()
+
+	if(conn.status==1):
+		query = f"""UPDATE user_ SET fullname = '{fullname}', phoneprofessional = '{phonePro}', phonewhatsapp = '{phoneWpp}', email = '{email}', country = '{country}', state = '{state}', city = '{city}', zipcode = '{zipcode}', complement = '{complement}', number = '{number}', timezone = '{timezone}', dateofbirth = '{dateofbirth}', street = '{street}' WHERE personalid = '{pid}';"""
+
+		cur.execute(query)
+
+		conn.commit()
+		cur.close()
+		conn.close()
+		return True
+	else:
+		cur.close()
+		conn.close()
+		return False
+	
+def db_update_password(email, password):
+	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	cur = conn.cursor()
+
+	if(conn.status==1):
+		password_bytes = password.encode('utf-8')
+		salt = bcrypt.gensalt(rounds=12)
+		hashed = bcrypt.hashpw(password_bytes, salt)
+
+		query = """UPDATE user_ SET password = %s WHERE email = %s;"""
+		data = (hashed, email)
+		cur.execute(query, data)
+
+		conn.commit()
+		cur.close()
+		conn.close()
+		return True
+	else:
+		cur.close()
+		conn.close()
+		return False
+
+#insere uma empresa ao banco	
+def db_insert_company(regid, oficialname, marketname, phone, status, cpfullname, cpphone, cpemail, state, city, zipcode, complement, street):
+	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	cur = conn.cursor()
+
+	if(conn.status==1):
+		query = """INSERT INTO company (registrationnumber, oficialname, marketname, phone, status, contactpersonfullname, contactpersonphone, contactpersonemail, state, city, zipcode, complement, street) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
+
+		data = (regid, oficialname, marketname, phone, status, cpfullname, cpphone, cpemail, state, city, zipcode, complement, street)
+		cur.execute(query, data)
+
+		conn.commit()
+
+		cur.close()
+		conn.close()
+		return True
+	else:
+		cur.close()
+		conn.close()
+		return False
+	
+#insere um poço ao banco	
+def db_insert_well(userid, companyid, name, description, status, operatingcompany, soundingcompany, drillingcompany, environment, welltype, depth, waterdepth, wellcode, block, reservoirtype, field, inclination):
+	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	cur = conn.cursor()
+
+	if(conn.status==1):
+		cur.execute('SELECT COUNT(id) FROM well')
+		result = cur.fetchone()
+		count = result[0] if result is not None else 0
+		id = 1000 + count
+
+		query = """INSERT INTO well (id, userid, companyid, name, description, status, operatingcompany, soundingcompany, drillingcompany, environment, welltype, depth, waterdepth, wellcode, block, reservoirtype, field, inclination) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
+
+		data = (id, userid, companyid, name, description, status, operatingcompany, soundingcompany, drillingcompany, environment, welltype, depth, waterdepth, wellcode, block, reservoirtype, field, inclination)
+		cur.execute(query, data)
+
+		cur.execute(f'INSERT INTO company_well (companyid, wellid) VALUES ({companyid}, {id})')
+		cur.execute(f'INSERT INTO welluser (wellid, userid) VALUES ({id}, {userid})')
+
+		conn.commit()
+
+		cur.close()
+		conn.close()
+		return True
+	else:
+		cur.close()
+		conn.close()
+		return False
+	
 #Procura um usuário no banco e verifica sua senha
-def db_find_user(email, password):
+def db_find_user(email, password=None):
 	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
 	cur = conn.cursor()
 
@@ -244,12 +340,15 @@ def db_find_user(email, password):
 		cur.execute(query, (email,))
 		user = cur.fetchone()
 		if(user):
-			hashed = user[6].tobytes()
-			if bcrypt.checkpw(password.encode('utf-8'), hashed):
-				cur.close()
-				conn.close()
-				u = User_class(id = user[0], name = user[2], phone = user[4], email = user[5])
-				return u
+			if(password):
+				hashed = user[6].tobytes()
+				if bcrypt.checkpw(password.encode('utf-8'), hashed):
+					cur.close()
+					conn.close()
+					u = User_class(id = user[0], cid=user[1], name = user[2], phone = user[3], email = user[5])
+					return u
+			else:
+				return user
 	cur.close()
 	conn.close()
 
@@ -269,6 +368,7 @@ def db_email_exists(email):
 		else:
 			return False
 		
+#verifica se o id existe
 def db_id_exists(pid):
 	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
 	cur = conn.cursor()
@@ -283,6 +383,48 @@ def db_id_exists(pid):
 			return True
 		else:
 			return False
+		
+#verifica se o registro da empresa existe
+def db_regid_exists(regid):
+	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	cur = conn.cursor()
+
+	if(conn.status==1):
+		query = "SELECT * FROM company WHERE registrationnumber = %s;"
+		cur.execute(query, (regid,))
+		comp = cur.fetchone()
+		cur.close()
+		conn.close()
+		if(comp):
+			return True
+		else:
+			return False
+		
+def db_get_company_id(marketname):
+	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	cur = conn.cursor()
+
+	if(conn.status==1):
+		query = "SELECT * FROM company WHERE marketname = %s;"
+		cur.execute(query, (marketname,))
+		comp = cur.fetchone()
+		cur.close()
+		conn.close()
+		if(comp):
+			return comp[0]
+		
+def db_get_well_id(name):
+	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	cur = conn.cursor()
+
+	if(conn.status==1):
+		query = "SELECT * FROM well WHERE name = %s;"
+		cur.execute(query, (name,))
+		w = cur.fetchone()
+		cur.close()
+		conn.close()
+		if(w):
+			return w[0]
 
 #atualiza o timestamp de login
 def update_login_timestamp(email):
@@ -298,21 +440,81 @@ def update_login_timestamp(email):
 	conn.close()
 
 #devolve uma coluna no formato de lista
-def get_list(table, column, enum):
+def get_list(table, column=None, enum=False):
 	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
 	cur = conn.cursor()
 
 	if(conn.status==1):
 		if(enum):
 			query = f"SELECT unnest(enum_range(NULL::{column}))::text;"
-		else:
+		elif(column):
 			query = f"SELECT {column} FROM {table} ORDER BY {column} ASC;"
+		else:
+			query = f"SELECT * FROM {table};"
 		cur.execute(query)
 		rows= cur.fetchall()
 		cur.close()
 		conn.close()
-		if(rows):
+		info = rows
+		if(rows and (enum or column)):
 			info = [row[0] for row in rows]
-			return info
+		return info
 	return None
 	
+def query_command(query, all = False):
+	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	cur = conn.cursor()
+
+	if(conn.status==1):
+		cur.execute(query)
+
+		if(all):
+			rows = cur.fetchall()
+		else:
+			rows = cur.fetchone()
+		
+		cur.close()
+		conn.close()
+		return rows
+
+def save_data(data, wellid):
+	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	cur = conn.cursor()
+
+	rop = data['ROP'].tolist()
+	mse = data['MSE'].tolist()
+	dwob = data['DWOB'].tolist()
+	swob = data['SWOB'].tolist()
+	srpm = data['SRPM'].tolist()
+	crpm = data['CRPM'].tolist()
+	tflow = data['TFLOW'].tolist()
+	stor = data['STOR'].tolist()
+	dtor = data['DTOR'].tolist()
+	tvd = data['TVD'].tolist()
+	md = data['MD'].tolist()
+
+	if(conn.status==1):
+		count = cur.execute('SELECT COUNT(id) FROM data_')
+		if count == None:
+			count = 0
+		id = 1000 + count
+
+		query = """
+			INSERT INTO data_ (id, wellid, rop, mse, dwob, swob, srpm, crpm, tflow, stor, dtor, tvd, md) 
+			VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+		"""
+			
+		data = (id, wellid, rop, mse, dwob, swob, srpm, crpm, tflow, stor, dtor, tvd, md)
+		cur.execute(query, data)
+
+		cur.execute(f'INSERT INTO data_well (dataid, wellid) VALUES ({id}, {wellid})')
+
+		conn.commit()
+
+		cur.close()
+		conn.close()
+
+		return (id, wellid)
+	
+	cur.close()
+	conn.close()
