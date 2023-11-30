@@ -6,7 +6,7 @@ from User import User_class
 
 #Cria as tables no banco
 def db_init():
-	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	conn = psy.connect(**st.secrets.postgres)
 	cur = conn.cursor()
 
 	if(conn.status==1):
@@ -187,7 +187,7 @@ def add_continents():
 #A lista de países se encontra em countries.txt
 #Nome pais/Continente/Formato cpf/formato cnpj
 def add_countries():
-		conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+		conn = psy.connect(**st.secrets.postgres)
 		cur = conn.cursor()
 
 		if(conn.status==1):
@@ -213,7 +213,7 @@ def add_countries():
 
 #insere um usuário ao banco
 def db_insert_user(pid, cid, fullname, phonePro, phoneWpp, email, password, country, state, city, zipcode, complement, number, timezone, dateofbirth, street):
-	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	conn = psy.connect(**st.secrets.postgres)
 	cur = conn.cursor()
 
 	if(conn.status==1):
@@ -241,7 +241,7 @@ def db_insert_user(pid, cid, fullname, phonePro, phoneWpp, email, password, coun
 		return False
 	
 def db_update_user(pid, fullname, phonePro, phoneWpp, email, country, state, city, zipcode, complement, number, timezone, dateofbirth, street):
-	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	conn = psy.connect(**st.secrets.postgres)
 	cur = conn.cursor()
 
 	if(conn.status==1):
@@ -259,7 +259,7 @@ def db_update_user(pid, fullname, phonePro, phoneWpp, email, country, state, cit
 		return False
 	
 def db_update_password(email, password):
-	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	conn = psy.connect(**st.secrets.postgres)
 	cur = conn.cursor()
 
 	if(conn.status==1):
@@ -282,7 +282,7 @@ def db_update_password(email, password):
 
 #insere uma empresa ao banco	
 def db_insert_company(regid, oficialname, marketname, phone, status, cpfullname, cpphone, cpemail, state, city, zipcode, complement, street):
-	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	conn = psy.connect(**st.secrets.postgres)
 	cur = conn.cursor()
 
 	if(conn.status==1):
@@ -303,7 +303,7 @@ def db_insert_company(regid, oficialname, marketname, phone, status, cpfullname,
 	
 #insere um poço ao banco	
 def db_insert_well(userid, companyid, name, description, status, operatingcompany, soundingcompany, drillingcompany, environment, welltype, depth, waterdepth, wellcode, block, reservoirtype, field, inclination):
-	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	conn = psy.connect(**st.secrets.postgres)
 	cur = conn.cursor()
 
 	if(conn.status==1):
@@ -332,7 +332,7 @@ def db_insert_well(userid, companyid, name, description, status, operatingcompan
 	
 #Procura um usuário no banco e verifica sua senha
 def db_find_user(email, password=None):
-	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	conn = psy.connect(**st.secrets.postgres)
 	cur = conn.cursor()
 
 	if(conn.status==1):
@@ -354,7 +354,7 @@ def db_find_user(email, password=None):
 
 #checa se o email já existe
 def db_email_exists(email):
-	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	conn = psy.connect(**st.secrets.postgres)
 	cur = conn.cursor()
 
 	if(conn.status==1):
@@ -370,7 +370,7 @@ def db_email_exists(email):
 		
 #verifica se o id existe
 def db_id_exists(pid):
-	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	conn = psy.connect(**st.secrets.postgres)
 	cur = conn.cursor()
 
 	if(conn.status==1):
@@ -386,7 +386,7 @@ def db_id_exists(pid):
 		
 #verifica se o registro da empresa existe
 def db_regid_exists(regid):
-	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	conn = psy.connect(**st.secrets.postgres)
 	cur = conn.cursor()
 
 	if(conn.status==1):
@@ -401,7 +401,7 @@ def db_regid_exists(regid):
 			return False
 		
 def db_get_company_id(marketname):
-	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	conn = psy.connect(**st.secrets.postgres)
 	cur = conn.cursor()
 
 	if(conn.status==1):
@@ -414,7 +414,7 @@ def db_get_company_id(marketname):
 			return comp[0]
 		
 def db_get_well_id(name):
-	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	conn = psy.connect(**st.secrets.postgres)
 	cur = conn.cursor()
 
 	if(conn.status==1):
@@ -428,7 +428,7 @@ def db_get_well_id(name):
 
 #atualiza o timestamp de login
 def update_login_timestamp(email):
-	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	conn = psy.connect(**st.secrets.postgres)
 	cur = conn.cursor()
 
 	if(conn.status==1):
@@ -441,7 +441,7 @@ def update_login_timestamp(email):
 
 #devolve uma coluna no formato de lista
 def get_list(table, column=None, enum=False):
-	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	conn = psy.connect(**st.secrets.postgres)
 	cur = conn.cursor()
 
 	if(conn.status==1):
@@ -462,7 +462,7 @@ def get_list(table, column=None, enum=False):
 	return None
 	
 def query_command(query, all = False):
-	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	conn = psy.connect(**st.secrets.postgres)
 	cur = conn.cursor()
 
 	if(conn.status==1):
@@ -478,7 +478,7 @@ def query_command(query, all = False):
 		return rows
 
 def save_data(data, wellid):
-	conn = psy.connect(database = "smartwellsdatabase", host = "localhost", user = "postgres", password = "7246", port = "5432")
+	conn = psy.connect(**st.secrets.postgres)
 	cur = conn.cursor()
 
 	rop = data['ROP'].tolist()
