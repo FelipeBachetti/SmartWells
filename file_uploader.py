@@ -45,7 +45,8 @@ def uploader(df, c1, column_names):
         file = st.file_uploader("Upload de arquivo: ", ['csv', 'json'])
 
     if file:
-        match file.type.split('/'):
+        file_type = file.type.split('/')
+        match file_type:
             case 'application', 'json':
                 st.json(loads(file.read()))
             case 'text', 'csv':
