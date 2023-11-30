@@ -1,0 +1,17 @@
+psycopg2
+bcrypt
+streamlit
+datetime
+json
+pandas
+matplotlib.pyplot
+io
+streamlit_extras.chart_container
+streamlit_extras.dataframe_explorer
+PIL
+altair
+streamlit_ext
+extra_streamlit_components
+email_validator
+re
+dataclasses
