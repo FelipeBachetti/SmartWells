@@ -3,7 +3,7 @@ bcrypt
 streamlit
 datetime
 pandas
-matplotlib.pyplot
+matplotlib
 io
 streamlit_extras.chart_container
 streamlit_extras.dataframe_explorer
