@@ -2,7 +2,6 @@ psycopg2-binary
 bcrypt
 streamlit
 datetime
-json
 pandas
 matplotlib.pyplot
 io
