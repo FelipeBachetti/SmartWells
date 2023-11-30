@@ -6,7 +6,6 @@ pandas
 matplotlib
 streamlit_extras
 streamlit_extras
-PIL
 altair
 streamlit_ext
 extra_streamlit_components
