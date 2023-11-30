@@ -4,7 +4,6 @@ streamlit
 datetime
 pandas
 matplotlib
-io
 streamlit_extras.chart_container
 streamlit_extras.dataframe_explorer
 PIL
