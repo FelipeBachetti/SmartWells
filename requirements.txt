@@ -4,8 +4,8 @@ streamlit
 datetime
 pandas
 matplotlib
-streamlit_extras.chart_container
-streamlit_extras.dataframe_explorer
+streamlit_extras
+streamlit_extras
 PIL
 altair
 streamlit_ext
