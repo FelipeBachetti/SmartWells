@@ -10,5 +10,3 @@ altair
 streamlit_ext
 extra_streamlit_components
 email_validator
-re
-dataclasses
