@@ -46,21 +46,20 @@ def uploader(df, c1, column_names):
 
     if file:
         file_type = file.type.split('/')
-        match file_type:
-            case 'application', 'json':
-                st.json(loads(file.read()))
-            case 'text', 'csv':
-                df = pd.read_csv(file)
-                columns = df.columns
-                for c in columns:
-                    c.replace(" ", "")
-                    c.upper()
-                df = df.replace(',', '.', regex=True)
-                df.columns = columns
-                df = df.astype(float)
+        if (file_type[0] == 'application' and file_type[1] == 'json'):
+            st.json(loads(file.read()))
+        elif (file_type[0] == 'text' and file_type[1] == 'csv'):
+            df = pd.read_csv(file)
+            columns = df.columns
+            for c in columns:
+                c.replace(" ", "")
+                c.upper()
+            df = df.replace(',', '.', regex=True)
+            df.columns = columns
+            df = df.astype(float)
 
-                df_ = pd.DataFrame(columns=column_names, dtype=float)
-                df_ = identify_columns(df, df_)
+            df_ = pd.DataFrame(columns=column_names, dtype=float)
+            df_ = identify_columns(df, df_)
         return df_
     
 def identify_columns(df, df_):
