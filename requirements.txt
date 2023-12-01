@@ -3,14 +3,9 @@ bcrypt
 streamlit
 datetime
 pandas
-matplotlib.pyplot
-io
-streamlit_extras.chart_container
-streamlit_extras.dataframe_explorer
-PIL
+matplotlib
+streamlit_extras
 altair
 streamlit_ext
 extra_streamlit_components
 email_validator
-re
-dataclasses
