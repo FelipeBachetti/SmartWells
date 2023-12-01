@@ -6,7 +6,8 @@ import psycopg2
 
 @st.experimental_singleton
 def init_connection():
-    return psycopg2.connect(**st.secrets["postgres"])
+    return st.connection("postgres", type="sql")
+
 conn = init_connection()
 # Perform query.
 # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
